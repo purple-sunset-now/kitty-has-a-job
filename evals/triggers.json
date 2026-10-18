@@ -1,0 +1,74 @@
+[
+  {
+    "query": "should I apply to this? https://jobs.lever.co/tradeloop/senior-pm-search-discovery (Amsterdam, 105-125k)",
+    "should_trigger": true
+  },
+  {
+    "query": "here's a Senior PM posting from Delivery Hero, can you tailor my CV for it and log it in my tracker",
+    "should_trigger": true
+  },
+  {
+    "query": "Kannst du meinen Lebenslauf für diese Stelle als Senior Product Manager bei Zalando anpassen? [Stellenanzeige eingefügt]",
+    "should_trigger": true
+  },
+  {
+    "query": "how are my applications going? give me the funnel by country",
+    "should_trigger": true
+  },
+  {
+    "query": "sync my job applications from gmail, I got a few rejections this week",
+    "should_trigger": true
+  },
+  {
+    "query": "set up my job application tracker in notion",
+    "should_trigger": true
+  },
+  {
+    "query": "which of these three PM roles is worth my time? [three LinkedIn links]",
+    "should_trigger": true
+  },
+  {
+    "query": "recruiter sent me this Head of Product role at a fintech, is it a fit given my salary target?",
+    "should_trigger": true
+  },
+  {
+    "query": "write me a cover letter for the Tradeloop senior PM role",
+    "should_trigger": false
+  },
+  {
+    "query": "help me prepare for my hiring manager interview at Shopwave on Thursday",
+    "should_trigger": false
+  },
+  {
+    "query": "they offered me 115k, how do I negotiate up to 125k?",
+    "should_trigger": false
+  },
+  {
+    "query": "proofread my CV summary, just fix grammar, keep my wording",
+    "should_trigger": false
+  },
+  {
+    "query": "turn my CV into a one-page PDF with a nicer design",
+    "should_trigger": false
+  },
+  {
+    "query": "draft a LinkedIn message to the hiring manager at Fintrail",
+    "should_trigger": false
+  },
+  {
+    "query": "we're hiring a senior PM, write the job description for our posting",
+    "should_trigger": false
+  },
+  {
+    "query": "what's the average salary for a senior product manager in Berlin?",
+    "should_trigger": false
+  },
+  {
+    "query": "hello kitty",
+    "should_trigger": true
+  },
+  {
+    "query": "give me a random cat fact, I just got rejected",
+    "should_trigger": true
+  }
+]

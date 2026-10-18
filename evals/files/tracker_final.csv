@@ -1,0 +1,11 @@
+Company,Role,Level,Status,Furthest stage,Rounds reached,Reached final round,Country,Location,Job URL,Fit score,Fit notes,Salary,CV file,Template,Date tailored,Date submitted,Last update,Next step,Last email,Needs review,Notes
+Alpha,Senior PM,Senior,Rejected,Final round,2,true,Germany,,,,,,,,,2026-09-01,2026-10-01,,,false,
+Bravo,Senior PM,Senior,Rejected,Final round,2,true,Germany,,,,,,,,,2026-09-01,2026-10-01,,,false,
+Charlie,Senior PM,Senior,Interviewing,Final round,2,true,Netherlands,,,,,,,,,2026-09-01,2026-10-01,,,false,
+Delta,Senior PM,Senior,Interviewing,Interviewing,3,false,Germany,,,,,,,,,2026-09-01,2026-10-01,,,false,
+Echo,Senior PM,Senior,Rejected,Screening,1,false,Germany,,,,,,,,,2026-09-01,2026-10-01,,,false,
+Foxtrot,Senior PM,Senior,Rejected,Applied,0,false,Germany,,,,,,,,,2026-09-01,2026-10-01,,,false,
+Golf,Senior PM,Senior,No response,Applied,0,false,Netherlands,,,,,,,,,2026-09-01,2026-10-01,,,false,
+Hotel,Senior PM,Senior,Applied,Applied,0,false,Germany,,,,,,,,,2026-09-01,2026-10-01,,,false,
+India,Senior PM,Senior,Rejected,Applied,0,false,Netherlands,,,,,,,,,2026-09-01,2026-10-01,,,false,
+Juliet,Senior PM,Senior,Screening,Screening,1,false,Germany,,,,,,,,,2026-09-01,2026-10-01,,,false,

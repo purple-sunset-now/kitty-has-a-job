@@ -1,0 +1,172 @@
+{
+  "skill_name": "kitty-has-a-job",
+  "description": "Core task evals: run before every release.",
+  "evals": [
+    {
+      "id": 1,
+      "name": "score-strong-fit",
+      "type": "core",
+      "prompt": "Use the kitty-has-a-job skill in local mode with settings from evals/files/kitty-settings.md. Should I apply to this role? evals/files/postings/marketplace_senior_pm.txt Assume today is 2026-10-15.",
+      "expected_output": "A fit card scoring 4 or 5 with an apply recommendation, a salary line comparing the band to the target, and no CV edits.",
+      "files": [
+        "evals/files/kitty-settings.md",
+        "evals/files/postings/marketplace_senior_pm.txt",
+        "evals/files/templates/cv_main.docx"
+      ],
+      "expectations": [
+        "The reply shows a fit score of 4 or 5 out of 5",
+        "The reply recommends applying",
+        "The reply has a Salary line that mentions 105,000-125,000 and compares it with the 110,000 EUR target",
+        "The reply checks the must-haves against the CV text (mentions ML ranking or search experience from the CV)",
+        "No .docx file is created and no CV changes are proposed (Score mode stops after the card)"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "score-skip-low-fit",
+      "type": "edge",
+      "prompt": "Use the kitty-has-a-job skill in local mode with settings from evals/files/kitty-settings.md. Score this and tailor my CV if it makes sense: evals/files/postings/head_of_product_german.txt Assume today is 2026-10-15.",
+      "expected_output": "A low score (1 or 2) with a plain skip recommendation, citing native German, 5-day on-site, hardware domain and people management; no tailoring.",
+      "files": [
+        "evals/files/kitty-settings.md",
+        "evals/files/postings/head_of_product_german.txt",
+        "evals/files/templates/cv_main.docx"
+      ],
+      "expectations": [
+        "The fit score is 1 or 2",
+        "The reply recommends skipping",
+        "The reply names the German language requirement as a conflict with German B1",
+        "The reply names 5 on-site days as a conflict with max 3",
+        "The reply says salary is unknown and does not invent a number",
+        "No tailored CV is created and no tracker row is printed"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "tailor-end-to-end",
+      "type": "core",
+      "prompt": "Use the kitty-has-a-job skill in local mode with settings from evals/files/kitty-settings.md. Tailor my CV for evals/files/postings/marketplace_senior_pm.txt and apply all changes. Assume today is 2026-10-15.",
+      "expected_output": "A 4-5 fit card, then a list of proposed changes by section with unsupported posting terms marked as new claims, then the question; no file written.",
+      "files": [
+        "evals/files/kitty-settings.md",
+        "evals/files/postings/marketplace_senior_pm.txt",
+        "evals/files/templates/cv_main.docx"
+      ],
+      "expectations": [
+        "The reply shows a fit score of 4 or 5 with a Salary line comparing 105,000-125,000 with the 110,000 EUR target",
+        "The reply lists proposed changes by section (Summary and Experience)",
+        "The proposals rewrite or flag the bullet starting 'Responsible for various partner tools'",
+        "Any proposal that uses 'A/B test', 'SQL', 'two-sided' or 'recommendations' is marked as a new claim to confirm, not presented as an applied fact",
+        "The proposed text contains no em dash characters",
+        "No .docx file is created in evals/output and no tracker row is written or printed as saved",
+        "The reply ends by asking whether to apply the changes (and stops there)",
+        "evals/files/templates/cv_main.docx is unchanged"
+      ]
+    },
+    {
+      "id": 9,
+      "name": "stats-from-csv",
+      "type": "core",
+      "prompt": "Use the kitty-has-a-job skill in local mode with settings from evals/files/kitty-settings.md and evals/files/tracker.csv as the tracker. Give me my application stats. Assume today is 2026-10-15.",
+      "expected_output": "The fixed stats format: Sent 4 (Tailored excluded), percentages only apart from Sent, sanity checks hold, and the stale Tailored row (Oldco) is listed.",
+      "files": [
+        "evals/files/kitty-settings.md",
+        "evals/files/tracker.csv"
+      ],
+      "expectations": [
+        "Sent is 4 (the Tailored row is excluded)",
+        "Round 1 is 50% and Round 2 is 25%",
+        "Apart from Sent, values are percentages",
+        "The reply lists Oldco as Tailored for more than 14 days and asks whether it was sent",
+        "Country rows are shown for Germany and Netherlands only"
+      ]
+    },
+    {
+      "id": 10,
+      "name": "sync-from-emails",
+      "type": "core",
+      "prompt": "Use the kitty-has-a-job skill in local mode with settings from evals/files/kitty-settings.md, evals/files/tracker.csv as the tracker and evals/files/emails.json as the inbox. Run sync and show me the changes you would make. Assume today is 2026-10-15.",
+      "expected_output": "Ambiguous Fintrail rejection flags both Fintrail rows for review without changing status; the Shopwave reminder adds no round; the case study adds round 3 and Assignment; Nordpay gets a new row; Oldco moves to Applied; the job alert is ignored.",
+      "files": [
+        "evals/files/kitty-settings.md",
+        "evals/files/tracker.csv",
+        "evals/files/emails.json"
+      ],
+      "expectations": [
+        "Neither Fintrail row is set to Rejected; both get Needs review because the rejection names no role",
+        "The Shopwave reminder email does not increase Rounds reached",
+        "Shopwave gets Rounds reached 3 and Furthest stage Assignment from the case study email",
+        "A new row for Nordpay is proposed with Status Applied, Country Germany and Needs review ticked",
+        "Oldco moves from Tailored to Applied based on the German confirmation email",
+        "The job alert digest is ignored",
+        "Tradeloop (Applied 2026-08-01, no later email) is set to No response",
+        "No history column is lowered on any row"
+      ]
+    },
+    {
+      "id": 12,
+      "name": "local-tracker-csv-write",
+      "type": "core",
+      "prompt": "Before starting, copy evals/files/tracker.csv to evals/output/tracker_local.csv. Then use the kitty-has-a-job skill in local mode with settings from evals/files/kitty-settings-local.md. Tailor my CV for evals/files/postings/marketplace_senior_pm.txt. Apply exactly these two edits and nothing else: (1) replace the bullet 'Responsible for various partner tools and helped with onboarding.' with 'Owned partner tools and onboarding flows for the B2B marketplace.' (2) in the bullet about the pricing experiments platform, change 'pricing experiments platform' to 'pricing experimentation platform'. I have not submitted it yet. Assume today is 2026-10-15.",
+      "expected_output": "The tailored CV is saved and a new Tradeloop row is written to evals/output/tracker_local.csv (not just printed); the 5 existing rows and the header are unchanged and the file is still valid CSV.",
+      "files": [
+        "evals/files/kitty-settings-local.md",
+        "evals/files/tracker.csv",
+        "evals/files/postings/marketplace_senior_pm.txt",
+        "evals/files/templates/cv_main.docx"
+      ],
+      "expectations": [
+        "evals/output/tracker_local.csv parses as CSV with the same header as evals/files/tracker.csv",
+        "It has 6 data rows: the 5 original rows unchanged, plus 1 new row",
+        "The new row has Company Tradeloop, a Search/Discovery role, Status Tailored, Date tailored 2026-10-15, Country Netherlands, a Fit score of 4 or 5 and Job URL https://jobs.tradeloop.example/senior-pm-search",
+        "The existing Tradeloop row (Senior PM Growth) is not modified",
+        "evals/files/tracker.csv is unchanged",
+        "The reply mentions the tracker row in one line and does not paste the whole row",
+        "The 5 original lines of evals/output/tracker_local.csv are byte-identical to evals/files/tracker.csv (same line endings, no CRLF)",
+        "The bullet now reads 'Owned partner tools and onboarding flows for the B2B marketplace.' with 'Owned' bold and the rest not bold",
+        "The CV contains 'pricing experimentation platform' and no longer contains 'Responsible for various'",
+        "No other text in the CV changed (the Summary is identical to the template's)",
+        "A tailored .docx exists in evals/output and renders to at most 1 page"
+      ]
+    },
+    {
+      "id": 20,
+      "name": "german-cv-split-runs",
+      "type": "edge",
+      "prompt": "Use the kitty-has-a-job skill in local mode with settings from evals/files/kitty-settings.md, but use evals/files/cv_german.docx as the only template. Tailor it for evals/files/postings/german_marketplace_pm.txt and apply all changes. Assume today is 2026-10-15.",
+      "expected_output": "German proposals for the Profil and the filler bullet, unsupported terms marked as new claims, then the question; no file written.",
+      "files": [
+        "evals/files/kitty-settings.md",
+        "evals/files/postings/german_marketplace_pm.txt",
+        "evals/files/cv_german.docx"
+      ],
+      "expectations": [
+        "The reply proposes a revised Profil (summary) written in German",
+        "The reply proposes a German rewrite of the bullet starting 'Verantwortlich für verschiedene Partner-Tools'",
+        "If 'E-Commerce' or 'A/B-Tests' appear in the proposals, they are marked as new claims to confirm",
+        "No English sentence is proposed for the CV text (job titles and terms like ML or B2B-SaaS are fine)",
+        "No .docx file is created in evals/output and no tracker row is written or printed as saved",
+        "The reply ends by asking whether to apply the changes (and stops there)"
+      ]
+    },
+    {
+      "id": 21,
+      "name": "open-duplicate-stops",
+      "type": "edge",
+      "prompt": "Before starting, copy evals/files/tracker.csv to evals/output/tracker_local.csv. Then use the kitty-has-a-job skill in local mode with settings from evals/files/kitty-settings-local.md. Tailor my CV for evals/files/postings/people_manager_pm.txt. I want to apply even if the fit is so-so. Assume today is 2026-10-15.",
+      "expected_output": "The tracker already has Fintrail Lead PM Payments at Screening (same URL). The skill lists that row and stops: no CV, no new row.",
+      "files": [
+        "evals/files/kitty-settings-local.md",
+        "evals/files/tracker.csv",
+        "evals/files/postings/people_manager_pm.txt",
+        "evals/files/templates/cv_main.docx"
+      ],
+      "expectations": [
+        "The reply names the existing Fintrail Lead PM Payments application and its status Screening",
+        "The reply says it is stopping (or asks before going on) because this role already has an open application",
+        "No .docx file is created in evals/output",
+        "evals/output/tracker_local.csv is byte-identical to evals/files/tracker.csv"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+Senior Product Manager, Search & Discovery - Tradeloop (Amsterdam, Netherlands, hybrid 2 days)
+Salary: EUR 105,000 - 125,000
+About the role: Own search ranking and discovery for our two-sided marketplace (8M buyers).
+Requirements:
+- 6+ years in product management, B2B or marketplace
+- Shipped ML-powered ranking or recommendation products
+- Strong with experimentation and A/B testing
+- Fluent English
+Nice to have: pricing experience, SQL
+URL: https://jobs.tradeloop.example/senior-pm-search

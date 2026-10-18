@@ -1,0 +1,257 @@
+{
+  "skill_name": "kitty-has-a-job",
+  "description": "Regression cases from earlier fixes: run before bigger releases or when touching their area.",
+  "evals": [
+    {
+      "id": 3,
+      "name": "guardrail-people-management",
+      "prompt": "Use the kitty-has-a-job skill in local mode with settings from evals/files/kitty-settings.md. Tailor my CV for evals/files/postings/people_manager_pm.txt. I want to apply even if the fit is so-so. Assume today is 2026-10-15.",
+      "expected_output": "Managing PMs is flagged as a missing must-have that cannot be claimed; proposals never claim people management.",
+      "files": [
+        "evals/files/kitty-settings.md",
+        "evals/files/postings/people_manager_pm.txt",
+        "evals/files/templates/cv_main.docx"
+      ],
+      "expectations": [
+        "The fit card lists managing a team of product managers as a missing must-have",
+        "No proposed bullet or summary claims managing people, a team of PMs, or direct reports",
+        "The reply asks for confirmation before editing any file"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "template-over-limit",
+      "prompt": "Use the kitty-has-a-job skill in local mode with settings from evals/files/kitty-settings.md, but use evals/files/cv_too_long.docx as the only template. Tailor it for evals/files/postings/marketplace_senior_pm.txt. Assume today is 2026-10-15.",
+      "expected_output": "The skill reports the template is already 3 pages against a 1-page limit and asks whether to trim to the limit or keep the length, before proposing edits.",
+      "files": [
+        "evals/files/kitty-settings.md",
+        "evals/files/postings/marketplace_senior_pm.txt",
+        "evals/files/cv_too_long.docx"
+      ],
+      "expectations": [
+        "The reply states the template's baseline is over the page limit (3 pages vs 1)",
+        "The reply asks whether to trim to the limit or keep the length",
+        "No tailored file is written before the user answers"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "agency-posting-no-salary",
+      "prompt": "Use the kitty-has-a-job skill in local mode with settings from evals/files/kitty-settings.md. Should I apply? evals/files/postings/no_salary_agency.txt Assume today is 2026-10-15.",
+      "expected_output": "Company is recorded as unknown via TalentBridge, salary is unknown without an invented number, and a missing job link is noted.",
+      "files": [
+        "evals/files/kitty-settings.md",
+        "evals/files/postings/no_salary_agency.txt",
+        "evals/files/templates/cv_main.docx"
+      ],
+      "expectations": [
+        "The reply treats the employer as unknown and names TalentBridge as the agency",
+        "The salary line says unknown and contains no invented figure (an estimate is allowed only if clearly marked as an estimate)",
+        "The reply notes that there is no job link"
+      ]
+    },
+    {
+      "id": 7,
+      "name": "special-characters-file-name",
+      "prompt": "Use the kitty-has-a-job skill in local mode with settings from evals/files/kitty-settings.md. Tailor my CV for evals/files/postings/special_chars.txt. Apply exactly these two edits and nothing else: (1) replace the bullet 'Responsible for various partner tools and helped with onboarding.' with 'Owned partner tools and onboarding flows for the B2B marketplace.' (2) in the bullet about the pricing experiments platform, change 'pricing experiments platform' to 'pricing experimentation platform'. I have not submitted it yet. Assume today is 2026-10-15.",
+      "expected_output": "The output file name has no slash or ampersand, for example alex_example_cv_bart_and_co_retail_labs_pricing.docx.",
+      "files": [
+        "evals/files/kitty-settings.md",
+        "evals/files/postings/special_chars.txt",
+        "evals/files/templates/cv_main.docx"
+      ],
+      "expectations": [
+        "A tailored .docx is written in evals/output",
+        "The file name contains no '/', '\\\\', '&', ':' or '?' characters",
+        "The file name contains 'and' in place of '&'",
+        "The bullet now reads 'Owned partner tools and onboarding flows for the B2B marketplace.' with 'Owned' bold and the rest not bold",
+        "The CV contains 'pricing experimentation platform' and no longer contains 'Responsible for various'"
+      ]
+    },
+    {
+      "id": 8,
+      "name": "multiple-postings",
+      "prompt": "Use the kitty-has-a-job skill in local mode with settings from evals/files/kitty-settings.md. Which of these should I apply to? evals/files/postings/marketplace_senior_pm.txt evals/files/postings/head_of_product_german.txt evals/files/postings/special_chars.txt Assume today is 2026-10-15.",
+      "expected_output": "Three short fit cards, each with a salary line, and no tailoring until the user picks.",
+      "files": [
+        "evals/files/kitty-settings.md",
+        "evals/files/postings/marketplace_senior_pm.txt",
+        "evals/files/postings/head_of_product_german.txt",
+        "evals/files/postings/special_chars.txt",
+        "evals/files/templates/cv_main.docx"
+      ],
+      "expectations": [
+        "There is one fit card per posting (three in total)",
+        "Each card has a Salary line",
+        "The Industriewerk role is scored lowest",
+        "No CV file is created"
+      ]
+    },
+    {
+      "id": 11,
+      "name": "no-settings-runs-setup",
+      "prompt": "Use the kitty-has-a-job skill. Should I apply to this role? evals/files/postings/marketplace_senior_pm.txt (There is no Notion connector and no settings file in this environment.) Assume today is 2026-10-15.",
+      "expected_output": "The skill does not score with guessed settings; it explains setup is needed and offers local mode with a settings file.",
+      "files": [
+        "evals/files/postings/marketplace_senior_pm.txt"
+      ],
+      "expectations": [
+        "No fit score is given based on assumed settings",
+        "The reply explains that setup is needed",
+        "The reply offers local mode with a kitty-settings.md file"
+      ]
+    },
+    {
+      "id": 13,
+      "name": "setup-keeps-tracker",
+      "prompt": "Before starting, copy evals/files/kitty-settings-local.md to evals/output/kitty-settings.md and evals/files/tracker.csv to evals/output/tracker_local.csv. Then use the kitty-has-a-job skill in local mode with settings from evals/output/kitty-settings.md (there is no Notion). Change my Kitty settings: add Austria to my locations. Assume today is 2026-10-15.",
+      "expected_output": "Only the locations line changes; the tracker file keeps all its rows; no full setup interview.",
+      "files": [
+        "evals/files/kitty-settings-local.md",
+        "evals/files/tracker.csv"
+      ],
+      "expectations": [
+        "In evals/output/kitty-settings.md the locations line lists Germany, Netherlands and Austria",
+        "Every other line of evals/output/kitty-settings.md is unchanged",
+        "evals/output/tracker_local.csv is byte-identical to evals/files/tracker.csv (5 data rows, nothing recreated)",
+        "No second settings file or tracker file is created",
+        "The reply does not run the full setup interview (it does not ask about levels, domains, page limit or sync)"
+      ]
+    },
+    {
+      "id": 14,
+      "name": "settings-auto-found",
+      "prompt": "Before starting, copy evals/files/kitty-settings.md to kitty-settings.md in the current working folder. Then: use the kitty-has-a-job skill. Should I apply to this role? evals/files/postings/marketplace_senior_pm.txt (There is no Notion connector.) Assume today is 2026-10-15.",
+      "expected_output": "The skill finds kitty-settings.md in the working folder on its own and scores the role; it does not start setup.",
+      "files": [
+        "evals/files/kitty-settings.md",
+        "evals/files/postings/marketplace_senior_pm.txt",
+        "evals/files/templates/cv_main.docx"
+      ],
+      "expectations": [
+        "The reply shows a fit card with a score of 4 or 5",
+        "The Salary line compares 105,000-125,000 with the 110,000 EUR target (proof the settings file was read)",
+        "The reply does not start the setup interview or ask the user where the settings are"
+      ]
+    },
+    {
+      "id": 15,
+      "name": "reapply-after-rejection",
+      "prompt": "Before starting, copy evals/files/tracker_rejected.csv to evals/output/tracker_local.csv. Then use the kitty-has-a-job skill in local mode with settings from evals/files/kitty-settings-local.md. Tailor my CV for evals/files/postings/marketplace_senior_pm.txt. Apply exactly these two edits and nothing else: (1) replace the bullet 'Responsible for various partner tools and helped with onboarding.' with 'Owned partner tools and onboarding flows for the B2B marketplace.' (2) in the bullet about the pricing experiments platform, change 'pricing experiments platform' to 'pricing experimentation platform'. I have not submitted it yet. Assume today is 2026-10-15.",
+      "expected_output": "Tradeloop reposted the role that rejected the user in March. The skill lists the old row, does not stop, and writes a new row; the Rejected row stays as it was.",
+      "files": [
+        "evals/files/kitty-settings-local.md",
+        "evals/files/tracker_rejected.csv",
+        "evals/files/postings/marketplace_senior_pm.txt",
+        "evals/files/templates/cv_main.docx"
+      ],
+      "expectations": [
+        "The reply mentions the earlier Tradeloop Search & Discovery application that was rejected",
+        "The skill does not stop as 'already applied'; a tailored CV is saved in evals/output",
+        "evals/output/tracker_local.csv has 7 data rows: the 6 original rows unchanged plus 1 new row",
+        "The March row still has Status Rejected, Rounds reached 1 and its original Notes",
+        "The new row has Company Tradeloop, Status Tailored and Date tailored 2026-10-15",
+        "The bullet now reads 'Owned partner tools and onboarding flows for the B2B marketplace.' with 'Owned' bold and the rest not bold",
+        "The CV contains 'pricing experimentation platform' and no longer contains 'Responsible for various'",
+        "No other text in the CV changed (the Summary is identical to the template's)",
+        "A tailored .docx exists in evals/output and renders to at most 1 page"
+      ]
+    },
+    {
+      "id": 16,
+      "name": "sync-skips-recorded",
+      "prompt": "Use the kitty-has-a-job skill in local mode with settings from evals/files/kitty-settings-synced.md, evals/files/tracker_synced.csv as the tracker and evals/files/emails.json as the inbox. Run sync and show me the changes you would make. Assume today is 2026-10-15.",
+      "expected_output": "last_sync is 2026-10-14, so only the 2026-10-14 Oldco email is in the window, and it is already recorded on the Oldco row. Oldco gets no change; older emails are not processed. Tradeloop still moves to No response (45-day rule).",
+      "files": [
+        "evals/files/kitty-settings-synced.md",
+        "evals/files/tracker_synced.csv",
+        "evals/files/emails.json"
+      ],
+      "expectations": [
+        "No change is proposed for the Oldco row (no new Notes line, Last email or Last update change)",
+        "No row is created for Nordpay (its email is from 2026-10-12, before last_sync)",
+        "No Fintrail or Shopwave row changes because of emails dated before 2026-10-14",
+        "No history column is lowered on any row",
+        "Tradeloop Senior PM Growth (Applied 2026-08-01, no later email) is set to No response"
+      ]
+    },
+    {
+      "id": 17,
+      "name": "stats-final-at-round-2",
+      "prompt": "Use the kitty-has-a-job skill in local mode with settings from evals/files/kitty-settings.md and evals/files/tracker_final.csv as the tracker. Give me my application stats. Assume today is 2026-10-15.",
+      "expected_output": "Sent 10, Round 1 60%, Round 2 40%, Round 3+ 10%, Final 30%, Rejected 50%, Open 40%. Final above Round 3+ is reported as normal, not as an error.",
+      "files": [
+        "evals/files/kitty-settings.md",
+        "evals/files/tracker_final.csv"
+      ],
+      "expectations": [
+        "Sent is 10",
+        "Round 1 is 60%, Round 2 is 40%, Round 3+ is 10% and Final is 30%",
+        "Rejected is 50% and Open is 40%",
+        "The reply does not flag Final being higher than Round 3+ as an error or inconsistency, and does not change any number to fix it",
+        "There is no '3 -> Final' step conversion",
+        "Country rows show Germany with Sent 7 and Netherlands with Sent 3"
+      ]
+    },
+    {
+      "id": 18,
+      "name": "glyph-bullets-template",
+      "prompt": "Use the kitty-has-a-job skill in local mode with settings from evals/files/kitty-settings.md, but use evals/files/cv_glyph_bullets.docx as the only template. Tailor it for evals/files/postings/marketplace_senior_pm.txt. Apply exactly these two edits and nothing else: (1) replace the bullet 'Responsible for various partner tools and helped with onboarding.' with 'Owned partner tools and onboarding flows for the B2B marketplace.' (2) in the bullet about the pricing experiments platform, change 'pricing experiments platform' to 'pricing experimentation platform'. I have not submitted it yet. Assume today is 2026-10-15.",
+      "expected_output": "A tailored 1-page CV where every bullet still starts with the typed bullet character and a bold lead word, the filler bullet is rewritten, and nothing is claimed unconfirmed.",
+      "files": [
+        "evals/files/kitty-settings.md",
+        "evals/files/postings/marketplace_senior_pm.txt",
+        "evals/files/cv_glyph_bullets.docx"
+      ],
+      "expectations": [
+        "A tailored .docx exists in evals/output and renders to at most 1 page",
+        "evals/files/cv_glyph_bullets.docx is unchanged",
+        "Every bullet paragraph in the tailored CV still starts with the '•' character followed by a tab, and no bullet has two '•' characters",
+        "Every bullet's first word is bold and the rest of the bullet is not bold",
+        "The tailored CV contains no em dash characters",
+        "The bullet now reads 'Owned partner tools and onboarding flows for the B2B marketplace.' with 'Owned' bold and the rest not bold",
+        "The CV contains 'pricing experimentation platform' and no longer contains 'Responsible for various'"
+      ]
+    },
+    {
+      "id": 19,
+      "name": "table-layout-template",
+      "prompt": "Use the kitty-has-a-job skill in local mode with settings from evals/files/kitty-settings.md, but use evals/files/cv_table.docx as the only template. Tailor it for evals/files/postings/marketplace_senior_pm.txt. Apply exactly these two edits and nothing else: (1) replace the bullet 'Responsible for various partner tools and helped with onboarding.' with 'Owned partner tools and onboarding flows for the B2B marketplace.' (2) in the bullet about the pricing experiments platform, change 'pricing experiments platform' to 'pricing experimentation platform'. I have not submitted it yet. Assume today is 2026-10-15.",
+      "expected_output": "Edits land inside the table cells, the table layout is kept, the reply flags the table as an ATS risk once, 1 page.",
+      "files": [
+        "evals/files/kitty-settings.md",
+        "evals/files/postings/marketplace_senior_pm.txt",
+        "evals/files/cv_table.docx"
+      ],
+      "expectations": [
+        "A tailored .docx exists in evals/output and renders to at most 1 page",
+        "The tailored CV still has exactly one table, and the experience bullets are still inside it",
+        "The reply mentions the table layout as an ATS risk and does not rebuild the layout",
+        "The tailored CV contains no em dash characters",
+        "The bullet now reads 'Owned partner tools and onboarding flows for the B2B marketplace.' with 'Owned' bold and the rest not bold",
+        "The CV contains 'pricing experimentation platform' and no longer contains 'Responsible for various'"
+      ]
+    },
+    {
+      "id": 22,
+      "name": "tracked-changes-template",
+      "prompt": "Use the kitty-has-a-job skill in local mode with settings from evals/files/kitty-settings.md, but use evals/files/cv_tracked.docx as the only template. Tailor it for evals/files/postings/marketplace_senior_pm.txt. Apply exactly these two edits and nothing else: (1) replace the bullet 'Responsible for various partner tools and helped with onboarding.' with 'Owned partner tools and onboarding flows for the B2B marketplace.' (2) in the bullet about the pricing experiments platform, change 'pricing experiments platform' to 'pricing experimentation platform'. I have not submitted it yet. Assume today is 2026-10-15.",
+      "expected_output": "The skill warns about the tracked changes and the reviewer comment, the tailored copy has none of them, the text box is flagged as an ATS risk, 1 page.",
+      "files": [
+        "evals/files/kitty-settings.md",
+        "evals/files/postings/marketplace_senior_pm.txt",
+        "evals/files/cv_tracked.docx"
+      ],
+      "expectations": [
+        "A tailored .docx exists in evals/output and renders to at most 1 page",
+        "The reply warns that the template has tracked changes or comments",
+        "The tailored CV has no tracked changes (no w:ins, w:del or w:delText) and no comments (no commentReference, no word/comments.xml)",
+        "The private reviewer note text ('private reviewer note') does not appear anywhere in the tailored .docx",
+        "The reply mentions the text box (contact line) as an ATS risk",
+        "The tailored CV contains no em dash characters",
+        "The bullet now reads 'Owned partner tools and onboarding flows for the B2B marketplace.' with 'Owned' bold and the rest not bold",
+        "The CV contains 'pricing experimentation platform' and no longer contains 'Responsible for various'"
+      ]
+    }
+  ]
+}
