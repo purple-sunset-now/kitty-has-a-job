@@ -14,7 +14,7 @@ A Claude skill that automates your job search. Paste a job posting link (for Lin
 1. **Score job fit** and tell you if it's worth applying. Over time it learns from your actual interview results.
 2. **Tailor your CV** to the role by matching keywords and following CV best practices, so you have a better chance of getting past the recruiter filter to the people who can actually assess your skills.
 3. **Log it** in a tracker, so you always know whether you already applied to a job.
-4. **Update statuses for applied roles** from your inbox.
+4. **Update statuses for applied roles** from your inbox, on a schedule if you like.
 5. **Tell you what actually converts:** how many interviews you get at each stage, where the funnel dips, and which types of roles convert better.
 
 And Kitty is a cat. She miaows now and then, and when the search gets rough she can cheer you up with a random cat fact. See [Meet Kitty](#meet-kitty).
@@ -124,7 +124,7 @@ Kitty is a cat, and sometimes it shows. Expect an occasional "miaow" when you gr
    - **Claude app or Cowork:** upload the zip as a skill.
    - **Claude Code:** unzip it into `~/.claude/skills/`, so you end up with `~/.claude/skills/kitty-has-a-job/`.
 2. **Save your template.** Save your CV as a `.docx` somewhere Kitty can access. Other formats aren't supported yet, but you can use the template from the repository.
-3. **Set it up.** Say **"hello kitty"** (or **"set up Kitty has a job"**). Claude creates your tracker and a settings page, then asks a few questions: targets, locations, page limit, guardrails, sync schedule.
+3. **Set it up.** Say **"hello kitty"** (or **"set up Kitty has a job"**). Claude creates your tracker and a settings page, then asks a few questions: targets, locations, page limit, guardrails, sync schedule. Say yes to sync and Kitty creates a daily Gmail check for you (it needs the Gmail connector). If your Claude has no scheduling tool, she gives you the prompt to paste into your own scheduler.
 4. **Share a posting.** Share a job posting link. **LinkedIn:** paste the job description text instead of the link, because LinkedIn blocks automated readers and Kitty can't open those links. That's it.
 
 ### No CV handy? Try the sample
